@@ -1,0 +1,20 @@
+{
+  "name": "appm",
+  "description": "",
+  "main": "public/app.js",
+  "authors": [
+    "Carlos Alonso Turner Benites"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mathjs": "^3.12.3"
+  }
+}
