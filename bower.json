@@ -1,7 +1,7 @@
 {
   "name": "appm",
   "description": "",
-  "main": "public/app.js",
+  "main": "build/app.js",
   "authors": [
     "Carlos Alonso Turner Benites"
   ],
@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "mathjs": "^3.12.3"
+    "mathjs": "^3.12.3",
+    "p5.js": "p5js#^0.5.8"
   }
 }

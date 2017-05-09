@@ -2,10 +2,18 @@
   "name": "appm",
   "version": "1.0.0",
   "description": "",
-  "main": "public/app.js",
+  "main": "build/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/index.js -o build/app.js"
   },
   "author": "Carlos Alonso Turner Benites",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
 }
