@@ -5,7 +5,7 @@
   "main": "build/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "browserify -t [ babelify --presets [ react es2015 ] ] src/*.js -o build/app.js"
+    "build": "browserify -t [ babelify --presets [ react es2015 ] ] soundsys/static/src/*.js -o soundsys/static/build/app.js"
   },
   "author": "Carlos Alonso Turner Benites",
   "license": "ISC",

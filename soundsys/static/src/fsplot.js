@@ -1,3 +1,4 @@
+/*
 var s1 = '((1/2)+((6/PI)*sin(x)))';
 var s2 = '((6/PI)*sin(3x))';
 var s3 = '((6/(5*PI))*sin(5x))';
@@ -14,3 +15,4 @@ functionPlot({
 		{ fn: a3 },
 	]
 });
+*/

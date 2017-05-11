@@ -1,4 +1,4 @@
-
+/*
 var sketch3 = function (p) {
 	var mic;
 	var micLevel;
@@ -76,14 +76,14 @@ var sketch = function (p) {
 	};
 };
 
-new p5(sketch);
+new p5(sketch);*/
 
 var sketch2 = function (p) {
 	var sound;
 	var fft;
 
 	p.preload = function(){
-		sound = p.loadSound('assets/jeans-love-theme-mp3-29250.mp3');
+		sound = p.loadSound('static/assets/clair_de_lune.mp3');
 	};
 
 	p.setup = function(){
