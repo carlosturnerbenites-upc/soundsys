@@ -1,3 +1,106 @@
+var sketch2 = function (p) {
+	var sound;
+	var fft;
+
+	var mic;
+	var micLevel;
+
+	mic = new p5.AudioIn();
+	mic.start();
+
+	p.preload = function(){
+		sound = p.loadSound('static/assets/op_ttg.mp3');
+	};
+
+	p.setup = function(){
+		var cnv = p.createCanvas(400,400);
+		cnv.mouseClicked(p.togglePlay);
+		fft = new p5.FFT();
+		sound.amp(0.2);
+		p.fill(0);
+
+	};
+
+	p.keyPressed = function() {
+		var waveform = fft.waveform();
+		console.log(waveform)
+		var misCabeceras = new Headers({
+			"Content-Type": "application/json",
+		});
+
+		var miInit = {
+			method: 'POST',
+			headers: misCabeceras,
+			mode: 'cors',
+			body: JSON.stringify(waveform),
+			cache: 'default' 
+		};
+
+		fetch("/wave", miInit);
+		return 0;
+	}
+
+	p.draw = function(){
+		p.background(240);
+
+		var vol = mic.getLevel();
+
+
+		var spectrum = fft.analyze();
+		p.noStroke();
+		p.fill(0,255,0); // spectrum is green
+		for (var i = 0; i< spectrum.length; i++){
+			var x = p.map(i, 0, spectrum.length, 0, p.width);
+			var h = -p.height + p.map(spectrum[i], 0, 255, p.height, 0);
+			p.rect(x, p.height, p.width / spectrum.length, h );
+		}
+
+		var waveform = fft.waveform();
+		//console.log(__p__)
+		if ( __p__ ) {
+			console.log(JSON.stringify(waveform))
+		}
+		p.noFill();
+		p.beginShape();
+		p.stroke(255,0,0); // waveform is red
+		p.strokeWeight(1);
+		for (var i = 0; i< waveform.length; i++){
+			var x = p.map(i, 0, waveform.length, 0, p.width);
+			var y = p.map( waveform[i], -1, 1, 0, p.height);
+			p.vertex(x,y);
+		}
+		p.endShape();
+
+		p.text('click to play/pause', 4, 10);
+
+		p.translate(p.width/2, p.width/2);
+		p.drawGrid();
+	};
+
+	// fade sound if mouse is over canvas
+	p.togglePlay = function() {
+		if (sound.isPlaying()) {
+			sound.pause();
+		} else {
+			sound.loop();
+		}
+	};
+	p.drawGrid = function() {
+		p.stroke(200);
+		p.fill(120);
+		for (var x=-p.width; x < p.width; x+=30) {
+			p.line(x, -p.height, x, p.height);
+			p.text(x, x+1, 12);
+		}
+		for (var y=-p.height; y < p.height; y+=30) {
+			p.line(-p.width, y, p.width, y);
+			p.text(y, 1, y+12);
+		}
+	};
+
+};
+
+new p5(sketch2);
 /*
 var sketch3 = function (p) {
 	var mic;
@@ -78,78 +181,3 @@ var sketch = function (p) {
 
 new p5(sketch);*/
 
-var sketch2 = function (p) {
-	var sound;
-	var fft;
-
-	p.preload = function(){
-		sound = p.loadSound('static/assets/clair_de_lune.mp3');
-	};
-
-	p.setup = function(){
-		var cnv = p.createCanvas(400,400);
-		cnv.mouseClicked(p.togglePlay);
-		fft = new p5.FFT();
-		sound.amp(0.2);
-		p.fill(0);
-
-	};
-
-	p.draw = function(){
-		p.background(240);
-
-		var spectrum = fft.analyze();
-		p.noStroke();
-		p.fill(0,255,0); // spectrum is green
-		for (var i = 0; i< spectrum.length; i++){
-			var x = p.map(i, 0, spectrum.length, 0, p.width);
-			var h = -p.height + p.map(spectrum[i], 0, 255, p.height, 0);
-			p.rect(x, p.height, p.width / spectrum.length, h );
-		}
-
-		var waveform = fft.waveform();
-		//console.log(__p__)
-		if ( __p__ ) {
-			console.log(JSON.stringify(waveform))
-		}
-		p.noFill();
-		p.beginShape();
-		p.stroke(255,0,0); // waveform is red
-		p.strokeWeight(1);
-		for (var i = 0; i< waveform.length; i++){
-			var x = p.map(i, 0, waveform.length, 0, p.width);
-			var y = p.map( waveform[i], -1, 1, 0, p.height);
-			p.vertex(x,y);
-		}
-		p.endShape();
-
-		p.text('click to play/pause', 4, 10);
-
-		p.translate(p.width/2, p.width/2);
-		p.drawGrid();
-	};
-
-	// fade sound if mouse is over canvas
-	p.togglePlay = function() {
-		if (sound.isPlaying()) {
-			sound.pause();
-		} else {
-			sound.loop();
-		}
-	};
-	p.drawGrid = function() {
-		p.stroke(200);
-		p.fill(120);
-		for (var x=-p.width; x < p.width; x+=30) {
-			p.line(x, -p.height, x, p.height);
-			p.text(x, x+1, 12);
-		}
-		for (var y=-p.height; y < p.height; y+=30) {
-			p.line(-p.width, y, p.width, y);
-			p.text(y, 1, y+12);
-		}
-	};
-
-};
-
-new p5(sketch2);

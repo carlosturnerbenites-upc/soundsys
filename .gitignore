@@ -2,6 +2,7 @@ node_modules
 soundsys/static/bower_components
 soundsys/static/assets
 soundsys/static/build
+soundsys/static/temp
 test
 tests
 .env
@@ -9,6 +10,7 @@ npm-debug.log
 
 .DS_Store
 *.pyc
+*.txt
 *.pyo
 env
 env*

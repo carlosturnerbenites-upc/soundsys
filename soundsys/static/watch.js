@@ -1,12 +1,12 @@
 var fs = require('fs');
 var browserify = require('browserify');
-var watchify = require('watchify');
+//var watchify = require('watchify');
 
 var b = browserify({
 	entries: ['src/*.js'],
 	cache: {},
 	packageCache: {},
-	plugin: [watchify]
+	//plugin: [watchify]
 });
 
 b.on('update', bundle);
