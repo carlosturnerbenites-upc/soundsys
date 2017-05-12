@@ -1,31 +1,61 @@
 var sketch2 = function (p) {
 	var sound;
 	var fft;
+	var filterhp;
+	var filterlp;
+	var filterbp;
 
 	var mic;
 	var micLevel;
+	var amplitude;
 
 	mic = new p5.AudioIn();
 	mic.start();
 
 	p.preload = function(){
-		sound = p.loadSound('static/assets/op_ttg.mp3');
+		sound = p.loadSound('static/assets/claro_luna.mp3');
+		
+		/*nota_do = p.loadSound('static/assets/do.mp3');
+		nota_re = p.loadSound('static/assets/re.mp3');
+		nota_mi = p.loadSound('static/assets/mi.mp3');
+		nota_fa = p.loadSound('static/assets/fa.mp3');
+		nota_sol = p.loadSound('static/assets/sol.mp3');
+		nota_la = p.loadSound('static/assets/la.mp3');
+		nota_si = p.loadSound('static/assets/si.mp3');
+		nota_do = p.loadSound('static/assets/do.mp3');*/
 	};
 
 	p.setup = function(){
 		var cnv = p.createCanvas(400,400);
 		cnv.mouseClicked(p.togglePlay);
 		fft = new p5.FFT();
+		amplitude = new p5.Amplitude();
+
 		sound.amp(0.2);
+
+		filterlp = new p5.LowPass(); // HighPass, BandPass o LowPass
+		filterhp = new p5.HighPass(); // HighPass, BandPass o LowPass
+		filterbp = new p5.BandPass(); // HighPass, BandPass o LowPass
+
+		// disconnect unfiltered noise,
+		// and connect to filter
+		sound.disconnect();
+		sound.connect(filterlp,filterhp,filterbp);
+
 		p.fill(0);
 
 	};
 
 	p.keyPressed = function() {
+		//computes amplitude values along the time domain. The array indices correspond to samples across a brief moment in time. Each value represents amplitude of the waveform at that sample of time.
 		var waveform = fft.waveform();
-		console.log(waveform)
+
+		//computes amplitude values along the frequency domain. The array indices correspond to frequencies (i.e. pitches), from the lowest to the highest that humans can hear. Each value represents amplitude at that slice of the frequency spectrum.
+		var spectrum = fft.analyze();
+
+		console.log(spectrum);
 		var misCabeceras = new Headers({
-			"Content-Type": "application/json",
+			'Content-Type': 'application/json',
 		});
 
 		var miInit = {
@@ -36,15 +66,22 @@ var sketch2 = function (p) {
 			cache: 'default' 
 		};
 
-		fetch("/wave", miInit);
+		fetch('/wave', miInit);
 		return 0;
-	}
+	};
 
 	p.draw = function(){
 		p.background(240);
 
 		var vol = mic.getLevel();
+		var level = amplitude.getLevel();
 
+		var valfpasslow = parseInt(document.querySelector('#fpasslow').value);
+		var valfpasshigh = parseInt(document.querySelector('#fpasshigh').value);
+		var valfilterbp = parseInt(document.querySelector('#fbandpass').value);
+		filterhp.res(valfpasshigh);
+		filterlp.res(valfpasslow);
+		filterbp.res(valfilterbp);
 
 		var spectrum = fft.analyze();
 		p.noStroke();
@@ -56,10 +93,6 @@ var sketch2 = function (p) {
 		}
 
 		var waveform = fft.waveform();
-		//console.log(__p__)
-		if ( __p__ ) {
-			console.log(JSON.stringify(waveform))
-		}
 		p.noFill();
 		p.beginShape();
 		p.stroke(255,0,0); // waveform is red
@@ -85,6 +118,7 @@ var sketch2 = function (p) {
 			sound.loop();
 		}
 	};
+
 	p.drawGrid = function() {
 		p.stroke(200);
 		p.fill(120);

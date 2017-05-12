@@ -1,3 +1,11 @@
-Ingresar la Serie de Fourier
+Rango de decibiles de los sonidos
 
-Graficaran los armonicos ( http://maurizzzio.github.io/function-plot/ )
+Composicion musical
+
+filtar el espectro ( recuencias )
+
+hacer las pruebas con los sonidos de las notas musicales
+
+capturar en imagen el canvas
+
+Relacion espectro - frecuencia
