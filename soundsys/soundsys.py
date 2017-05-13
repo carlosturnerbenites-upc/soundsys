@@ -56,3 +56,6 @@ def wave():
 
 
 	#return send_from_directory("static/temp/", filename=name_file)
+
+if __name__ == "__main__":
+	application.run(host='0.0.0.0')
