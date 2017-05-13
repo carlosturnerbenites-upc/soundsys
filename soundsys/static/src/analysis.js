@@ -4,6 +4,7 @@ var sketch2 = function (p) {
 	var filterhp;
 	var filterlp;
 	var filterbp;
+	var cnv;
 
 	var mic;
 	var micLevel;
@@ -14,7 +15,7 @@ var sketch2 = function (p) {
 
 	p.preload = function(){
 		sound = p.loadSound('static/assets/claro_luna.mp3');
-		
+
 		/*nota_do = p.loadSound('static/assets/do.mp3');
 		nota_re = p.loadSound('static/assets/re.mp3');
 		nota_mi = p.loadSound('static/assets/mi.mp3');
@@ -26,7 +27,7 @@ var sketch2 = function (p) {
 	};
 
 	p.setup = function(){
-		var cnv = p.createCanvas(400,400);
+		cnv = p.createCanvas(400,400);
 		cnv.mouseClicked(p.togglePlay);
 		fft = new p5.FFT();
 		amplitude = new p5.Amplitude();
@@ -52,6 +53,7 @@ var sketch2 = function (p) {
 
 		//computes amplitude values along the frequency domain. The array indices correspond to frequencies (i.e. pitches), from the lowest to the highest that humans can hear. Each value represents amplitude at that slice of the frequency spectrum.
 		var spectrum = fft.analyze();
+		p.save(cnv,"image.jpg");
 
 		console.log(spectrum);
 		var misCabeceras = new Headers({
@@ -63,7 +65,7 @@ var sketch2 = function (p) {
 			headers: misCabeceras,
 			mode: 'cors',
 			body: JSON.stringify(waveform),
-			cache: 'default' 
+			cache: 'default'
 		};
 
 		fetch('/wave', miInit);
@@ -107,7 +109,7 @@ var sketch2 = function (p) {
 		p.text('click to play/pause', 4, 10);
 
 		p.translate(p.width/2, p.width/2);
-		p.drawGrid();
+		//p.drawGrid();
 	};
 
 	// fade sound if mouse is over canvas
@@ -214,4 +216,3 @@ var sketch = function (p) {
 };
 
 new p5(sketch);*/
-
