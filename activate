@@ -2,5 +2,5 @@
 
 source env/bin/activate
 
-export FLASK_APP=soundsys
+export FLASK_APP=soundsys/soundsys.py
 export FLASK_DEBUG=true

@@ -1,9 +1,13 @@
 var sketch2 = function (p) {
 	var sound;
+	var sound2;
 	var fft;
 	var filterhp;
+	var filterhp2;
 	var filterlp;
+	var filterlp2;
 	var filterbp;
+	var filterbp2;
 	var cnv;
 
 	var mic;
@@ -15,6 +19,7 @@ var sketch2 = function (p) {
 
 	p.preload = function(){
 		sound = p.loadSound('static/assets/claro_luna.mp3');
+		sound2 = p.loadSound('static/assets/op_ttg.mp3');
 
 		/*nota_do = p.loadSound('static/assets/do.mp3');
 		nota_re = p.loadSound('static/assets/re.mp3');
@@ -33,15 +38,22 @@ var sketch2 = function (p) {
 		amplitude = new p5.Amplitude();
 
 		sound.amp(0.2);
+		sound2.amp(0.2);
 
 		filterlp = new p5.LowPass(); // HighPass, BandPass o LowPass
+		filterlp2 = new p5.LowPass(); // HighPass, BandPass o LowPass
 		filterhp = new p5.HighPass(); // HighPass, BandPass o LowPass
+		filterhp2 = new p5.HighPass(); // HighPass, BandPass o LowPass
 		filterbp = new p5.BandPass(); // HighPass, BandPass o LowPass
+		filterbp2 = new p5.BandPass(); // HighPass, BandPass o LowPass
 
 		// disconnect unfiltered noise,
 		// and connect to filter
 		sound.disconnect();
 		sound.connect(filterlp,filterhp,filterbp);
+
+		sound2.disconnect();
+		sound2.connect(filterlp2,filterhp2,filterbp2);
 
 		p.fill(0);
 
@@ -81,9 +93,18 @@ var sketch2 = function (p) {
 		var valfpasslow = parseInt(document.querySelector('#fpasslow').value);
 		var valfpasshigh = parseInt(document.querySelector('#fpasshigh').value);
 		var valfilterbp = parseInt(document.querySelector('#fbandpass').value);
+		
 		filterhp.res(valfpasshigh);
 		filterlp.res(valfpasslow);
 		filterbp.res(valfilterbp);
+
+		var valfpasslow2 = parseInt(document.querySelector('#fpasslow2').value);
+		var valfpasshigh2 = parseInt(document.querySelector('#fpasshigh2').value);
+		var valfilterbp2 = parseInt(document.querySelector('#fbandpass2').value);
+
+		filterhp2.res(valfpasshigh2);
+		filterlp2.res(valfpasslow2);
+		filterbp2.res(valfilterbp2);
 
 		var spectrum = fft.analyze();
 		p.noStroke();
@@ -114,10 +135,28 @@ var sketch2 = function (p) {
 
 	// fade sound if mouse is over canvas
 	p.togglePlay = function() {
-		if (sound.isPlaying()) {
-			sound.pause();
+		console.log("toogle play")
+		if ( document.querySelector(".sound").checked ) {
+			if (sound.isPlaying()) {
+				console.log("s loop")
+			}else{
+				sound.loop();
+			}
 		} else {
-			sound.loop();
+			console.log("s pause")
+			sound.pause();
+		}
+
+		if ( document.querySelector(".sound2").checked ) {
+			if (sound2.isPlaying()) {
+				console.log("s2 loop")
+			}else{
+				sound2.loop();
+
+			}
+		} else {
+			console.log("s2 pause")
+			sound2.pause();
 		}
 	};
 
@@ -136,83 +175,4 @@ var sketch2 = function (p) {
 
 };
 
-new p5(sketch2);
-/*
-var sketch3 = function (p) {
-	var mic;
-	var micLevel;
-	var fft3;
-	p.setup = function(){
-		var cnv = p.createCanvas(400,400);
-
-		mic = new p5.AudioIn();
-		mic.start();
-		fft3 = new p5.FFT();
-		p.fill(0);
-
-	};
-	p.draw = function(){
-		p.background(0);
-		micLevel = mic.getLevel();
-		p.ellipse(p.width/2, p.constrain(p.height-micLevel*p.height*5, 0, p.height), 10, 10);
-
-
-		var waveform = fft3.waveform();
-		//console.log(waveform)
-		p.noFill();
-		p.beginShape();
-		p.stroke(255,0,0); // waveform is red
-		p.strokeWeight(1);
-		for (var i = 0; i< waveform.length; i++){
-			var x = p.map(i, 0, waveform.length, 0, p.width);
-			var y = p.map( waveform[i], -1, 1, 0, p.height);
-			p.vertex(x,y);
-		}
-		p.endShape();
-
-	};
-};
-new p5(sketch3);
-
-
-var sketch = function (p) {
-	console.log(p);
-	var osc;
-	var backgroundColor;
-	var playing = false;
-
-	p.setup = function() {
-		backgroundColor = p.color(255,0,255);
-		p.textAlign(p.CENTER);
-
-		osc = new p5.Oscillator();
-		osc.setType('sine');
-		osc.freq(240);
-		osc.amp(0);
-		osc.start();
-		console.log(osc);
-	};
-
-	p.draw = function() {
-		p.background(backgroundColor);
-		p.text('click to play', p.width/2, p.height/2);
-	};
-
-	p.mouseClicked = function() {
-		if (p.mouseX > 0 && p.mouseX < p.width && p.mouseY < p.height && p.mouseY > 0) {
-			if (!playing) {
-				// ramp amplitude to 0.5 over 0.1 seconds
-				osc.amp(0.5, 0.05);
-				playing = true;
-				backgroundColor = p.color(0,255,255);
-			} else {
-				// ramp amplitude to 0 over 0.5 seconds
-				osc.amp(0, 0.5);
-				playing = false;
-				backgroundColor = p.color(255,0,255);
-			}
-		}
-	};
-};
-
-new p5(sketch);*/
+new p5(sketch2,document.querySelector("#grap"));

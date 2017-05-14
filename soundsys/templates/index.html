@@ -2,28 +2,53 @@
 <html>
 <head>
 	<title>SoundSys</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='src/bootstrap.css') }}">
 </head>
 <body>
 	<section id="root"></section>
 	<section id="link"></section>
 	<section id="multiple"></section>
 
-	<button>Do</button>
-	<button>Re</button>
-	<button>Mi</button>
-	<button>Fa</button>
-	<button>Sol</button>
-	<button>La</button>
-	<button>Si</button>
+	<div class="col-md-6">
+		<div class="col-md-12">
+			<label for="">Do</label>
+			<input type="checkbox" class="sound"> 
+		</div>
+		<div class="form-group col-md-4">
+			<label for="fpasslow">Filtro Bajos</label>
+			<input value="1" min="0.001" max="1000" step="1" type="range" id="fpasslow">
+		</div>
+		<div class="form-group col-md-4">
+			<label for="fpasshigh">Filtro Altos</label>
+			<input value="1" min="0.001" max="1000" step="1" type="range" id="fpasshigh">
+		</div>
+		<div class="form-group col-md-4">
+			<label for="fpasshigh">Banda</label>
+			<input value="1" min="0.001" max="1000" step="1" type="range" id="fbandpass">
+		</div>
+	</div>
 
-	<label for="fpasslow">Filtro Bajos</label>
-	<input value="1" min="1" max="200" step="1" type="range" id="fpasslow">
-
-	<label for="fpasshigh">Filtro Altos</label>
-	<input value="1" min="1" max="200" step="1" type="range" id="fpasshigh">
-
-	<label for="fpasshigh">Banda</label>
-	<input value="1" min="1" max="200" step="1" type="range" id="fbandpass">
+	<div class="col-md-6">
+		<div class="col-md-12">
+			<label for="">Re</label>
+			<input type="checkbox" class="sound2"> 
+		</div>
+		<div class="form-group col-md-4">
+			<label for="fpasslow2">Filtro Bajos</label>
+			<input value="1" min="0.001" max="1000" step="1" type="range" id="fpasslow2">
+		</div>
+		<div class="form-group col-md-4">
+			<label for="fpasshigh2">Filtro Altos</label>
+			<input value="1" min="0.001" max="1000" step="1" type="range" id="fpasshigh2">
+		</div>
+		<div class="form-group col-md-4">
+			<label for="fpasshigh2">Banda</label>
+			<input value="1" min="0.001" max="1000" step="1" type="range" id="fbandpass2">
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div id="grap"></div>
+	</div>
 
 	<script type="text/javascript" src="{{ url_for('static', filename='bower_components/p5.js/lib/p5.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='bower_components/p5.js/lib/addons/p5.dom.min.js') }}"></script>
