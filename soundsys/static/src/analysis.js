@@ -2,12 +2,11 @@ var sketch2 = function (p) {
 	var sound;
 	var sound2;
 	var fft;
-	var filterhp;
-	var filterhp2;
-	var filterlp;
-	var filterlp2;
-	var filterbp;
-	var filterbp2;
+
+
+	var filter;
+	var filter2;
+
 	var cnv;
 
 	var mic;
@@ -19,16 +18,7 @@ var sketch2 = function (p) {
 
 	p.preload = function(){
 		sound = p.loadSound('static/assets/claro_luna.mp3');
-		sound2 = p.loadSound('static/assets/op_ttg.mp3');
-
-		/*nota_do = p.loadSound('static/assets/do.mp3');
-		nota_re = p.loadSound('static/assets/re.mp3');
-		nota_mi = p.loadSound('static/assets/mi.mp3');
-		nota_fa = p.loadSound('static/assets/fa.mp3');
-		nota_sol = p.loadSound('static/assets/sol.mp3');
-		nota_la = p.loadSound('static/assets/la.mp3');
-		nota_si = p.loadSound('static/assets/si.mp3');
-		nota_do = p.loadSound('static/assets/do.mp3');*/
+		sound2 = p.loadSound('static/assets/lilium_acapella.mp3');
 	};
 
 	p.setup = function(){
@@ -40,26 +30,27 @@ var sketch2 = function (p) {
 		sound.amp(0.2);
 		sound2.amp(0.2);
 
-		filterlp = new p5.LowPass(); // HighPass, BandPass o LowPass
-		filterlp2 = new p5.LowPass(); // HighPass, BandPass o LowPass
-		filterhp = new p5.HighPass(); // HighPass, BandPass o LowPass
-		filterhp2 = new p5.HighPass(); // HighPass, BandPass o LowPass
-		filterbp = new p5.BandPass(); // HighPass, BandPass o LowPass
-		filterbp2 = new p5.BandPass(); // HighPass, BandPass o LowPass
+		filter = new p5.Filter(); // HighPass, BandPass o LowPass
+		filter2 = new p5.Filter(); // HighPass, BandPass o LowPass
+
 
 		// disconnect unfiltered noise,
 		// and connect to filter
 		sound.disconnect();
-		sound.connect(filterlp,filterhp,filterbp);
+		sound.connect(filter);
 
 		sound2.disconnect();
-		sound2.connect(filterlp2,filterhp2,filterbp2);
+		sound2.connect(filter2);
 
 		p.fill(0);
 
 	};
 
-	p.keyPressed = function() {
+	p.keyTyped = function() {
+		console.log("typed")
+		if ( p.key != "d" && p.key != "l" ){
+			return 0;
+		}
 		//computes amplitude values along the time domain. The array indices correspond to samples across a brief moment in time. Each value represents amplitude of the waveform at that sample of time.
 		var waveform = fft.waveform();
 
@@ -90,21 +81,14 @@ var sketch2 = function (p) {
 		var vol = mic.getLevel();
 		var level = amplitude.getLevel();
 
-		var valfpasslow = parseInt(document.querySelector('#fpasslow').value);
-		var valfpasshigh = parseInt(document.querySelector('#fpasshigh').value);
-		var valfilterbp = parseInt(document.querySelector('#fbandpass').value);
 		
-		filterhp.res(valfpasshigh);
-		filterlp.res(valfpasslow);
-		filterbp.res(valfilterbp);
+		var valfilter = parseInt(document.querySelector('#fpasslow').value);
+		filter.setType(document.querySelector("[name=filter1]:checked").value);
+		filter.freq(valfilter);
 
-		var valfpasslow2 = parseInt(document.querySelector('#fpasslow2').value);
-		var valfpasshigh2 = parseInt(document.querySelector('#fpasshigh2').value);
-		var valfilterbp2 = parseInt(document.querySelector('#fbandpass2').value);
-
-		filterhp2.res(valfpasshigh2);
-		filterlp2.res(valfpasslow2);
-		filterbp2.res(valfilterbp2);
+		var valfilter2 = parseInt(document.querySelector('#fpasslow2').value);
+		filter2.setType(document.querySelector("[name=filter2]:checked").value);
+		filter2.freq(valfilter2);
 
 		var spectrum = fft.analyze();
 		p.noStroke();
@@ -127,7 +111,7 @@ var sketch2 = function (p) {
 		}
 		p.endShape();
 
-		p.text('click to play/pause', 4, 10);
+		//p.text('click to play/pause', 4, 10);
 
 		p.translate(p.width/2, p.width/2);
 		//p.drawGrid();

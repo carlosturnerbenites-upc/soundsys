@@ -25,34 +25,22 @@ def add_entry():
 @app.route('/wave', methods=['POST'])
 def wave():
 	path = "soundsys/static/temp/"
-	name_file = "toharold__.txt"
+	name_file = "data.txt"
 	path_full = path+name_file
 	data = json.loads(request.data)
 	print data
 	print type(data)
 	time = float(0.000000000 )
-	toharold = open(path_full,"w")
+	file = open(path_full,"w")
 	for f in data:
-		toharold.write(str(time))
-		toharold.write(",")
-		toharold.write(str(f))
-		toharold.write("\n")
+		file.write(str(time))
+		file.write(",")
+		file.write(str(f))
+		file.write("\n")
 		time += float(9.97000000)
-	toharold.close()
+	file.close()
 	
-	file = open(path_full,"r")
-	return send_file(file)
-
-	# We need to modify the response, so the first thing we 
-	# need to do is create a response out of the CSV string
-	response = make_response(file)
-	# This is the key: Set the right header for the response
-	# to be downloaded, instead of just printed on the browser
-	response.headers["Content-Disposition"] = "attachment; filename=data.txt"
-	response.headers['Access-Control-Allow-Origin'] = '*'
-
-
-	return response
+	return jsonify({})
 
 
 	#return send_from_directory("static/temp/", filename=name_file)
