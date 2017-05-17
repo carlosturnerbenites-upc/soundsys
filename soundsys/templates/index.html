@@ -4,6 +4,10 @@
 	<title>SoundSys</title>
 	<link rel="stylesheet" href="{{ url_for('static', filename='src/bootstrap.css') }}">
 	<style>
+		html{
+			font-size:12;
+
+		}
 		canvas{
 			display: block;
 			margin: 0 auto;
@@ -11,54 +15,85 @@
 	</style>
 </head>
 <body>
-	<section>
+	<section class="well">
 		<h1 class="text-center">SoundSys</h1>
 	</section>
-	<section>
-		<p class="text-center" >
-			<a download href="static/temp/data.txt">Descargar Datos!</a>
-		</p>
-	</section>
 
-	<div class="col-md-6">
+
+	<div class="col-md-8 panel panel-default">
+		<div class="col-md-6 panel panel-primary">
+			<div class="panel-heading">
+				
+				<div class="col-md-12">
+					<input type="checkbox" class="sound" id="sound"> 
+					<label for="sound">Sonido 1</label>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<input type="radio" name="filter1" checked="" value="lowpass" id="filter1_lowpass">
+						<label for="filter1_lowpass">Filtro Bajos</label>
+					</div>
+					<div class="form-group col-md-6">
+						<input type="radio" name="filter1" value="highpass" id="filter1_highpass">
+						<label for="filter1_highpass">Filtro Altos</label>
+					</div>
+					<div class="form-group col-md-12">
+						<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6 panel panel-primary">
+			<div class="panel-heading ">
+
+				<div class="col-md-12">
+					<input type="checkbox" class="sound2" id="sound2"> 
+					<label for="sound2">Sonido 2</label>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<input type="radio" name="filter2" checked="" value="lowpass" id="filter2_lowpass">
+						<label for="filter2_lowpass">Filtro Bajos</label>
+					</div>
+					<div class="form-group col-md-6">
+						<input type="radio" name="filter2" value="highpass" id="filter2_highpass">
+						<label for="filter2_highpass">Filtro Altos</label>
+					</div>
+					<div class="form-group col-md-12">
+						<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow2">
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="col-md-12">
-			<label for="">Do</label>
-			<input type="checkbox" class="sound"> 
-		</div>
-		<div class="form-group col-md-6">
-			<label for="fpasslow">Filtro Bajos</label>
-			<input type="radio" name="filter1" checked="" value="lowpass">
-		</div>
-		<div class="form-group col-md-6">
-			<label for="fpasshigh">Filtro Altos</label>
-			<input type="radio" name="filter1" value="highpass">
-		</div>
-		<div class="form-group col-md-12">
-			<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow">
+			<div id="grap" style="background: #e4bd79;"></div>
 		</div>
 	</div>
+	<div class="col-md-4 panel panel-default">
+		<h2>Como Usar?</h2>
+		<ul>
+			<li>Espera a que carge la zona de la grafica <b>Zona cafe</b></li>
+			<li>Maque los recuadros de los sonidos con los cuales quiera trabajar <b>Sonido 1</b> y <b>Sonido 2</b> </li>
+			<li>
+				Seleccione el filtro que quiere aplicar al sonido <b>Bajos</b> o <b>Altos</b> 
+				<ul>
+					<li>El filtro Bajo solo dejara pasar las frecuencias menores a la seleccionado</li>
+					<li>El filtro Alto solo dejara pasar las frecuencias mayores a la seleccionado</li>
+				</ul>
+			</li>
+			<li>Presione Click sobre la zona de la grafica <b>Zona Cafe</b> Para reproducir los sonido con los filtro seleccionados</li>
+			<li>Ahora, presionando la tecla <b>d</b> o <b>l</b> podra descargar una imagen de la onda al instante y generar un archivo con la relacion tiempo/frecuencia de la ondas en ese momento</li>
 
-	<div class="col-md-6">
-		<div class="col-md-12">
-			<label for="">Re</label>
-			<input type="checkbox" class="sound2"> 
-		</div>
-		<div class="form-group col-md-6">
-			<label for="fpasslow2">Filtro Bajos</label>
-			<input type="radio" name="filter2" checked="" value="lowpass">
-		</div>
-		<div class="form-group col-md-6">
-			<label for="fpasshigh2">Filtro Altos</label>
-			<input type="radio" name="filter2" value="highpass">
-		</div>
-		<div class="form-group col-md-12">
-			<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow2">
-		</div>
-	</div>
-	<div class="col-md-12">
-		<div id="grap"></div>
-	</div>
 
+		</ul>
+		<section>
+			<p class="text-center" >
+				<a download href="static/temp/data.txt">Descargar Datos!</a>
+			</p>
+		</section>
+	</div>
 	<script type="text/javascript" src="{{ url_for('static', filename='bower_components/p5.js/lib/p5.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='bower_components/p5.js/lib/addons/p5.dom.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='bower_components/p5.js/lib/addons/p5.sound.js') }}"></script>
