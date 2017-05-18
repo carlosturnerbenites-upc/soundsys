@@ -1,11 +1,15 @@
 var sketch2 = function (p) {
 	var sound;
 	var sound2;
+	var sound3;
+	var sound4;
 	var fft;
 
 
 	var filter;
 	var filter2;
+	var filter3;
+	var filter4;
 
 	var cnv;
 
@@ -19,6 +23,8 @@ var sketch2 = function (p) {
 	p.preload = function(){
 		sound = p.loadSound('static/assets/claro_luna.mp3');
 		sound2 = p.loadSound('static/assets/lilium_acapella.mp3');
+		sound3 = p.loadSound('static/assets/lilium_acapella.mp3');
+		sound4 = p.loadSound('static/assets/lilium_acapella.mp3');
 	};
 
 	p.setup = function(){
@@ -29,9 +35,13 @@ var sketch2 = function (p) {
 
 		sound.amp(0.2);
 		sound2.amp(0.2);
+		sound3.amp(0.2);
+		sound4.amp(0.2);
 
 		filter = new p5.Filter(); // HighPass, BandPass o LowPass
 		filter2 = new p5.Filter(); // HighPass, BandPass o LowPass
+		filter3 = new p5.Filter(); // HighPass, BandPass o LowPass
+		filter4 = new p5.Filter(); // HighPass, BandPass o LowPass
 
 
 		// disconnect unfiltered noise,
@@ -41,6 +51,12 @@ var sketch2 = function (p) {
 
 		sound2.disconnect();
 		sound2.connect(filter2);
+
+		sound3.disconnect();
+		sound3.connect(filter3);
+
+		sound4.disconnect();
+		sound4.connect(filter4);
 
 		p.fill(0);
 
@@ -89,6 +105,14 @@ var sketch2 = function (p) {
 		var valfilter2 = parseInt(document.querySelector('#fpasslow2').value);
 		filter2.setType(document.querySelector("[name=filter2]:checked").value);
 		filter2.freq(valfilter2);
+
+		var valfilter3 = parseInt(document.querySelector('#fpasslow3').value);
+		filter3.setType(document.querySelector("[name=filter3]:checked").value);
+		filter3.freq(valfilter3);
+
+		var valfilter4 = parseInt(document.querySelector('#fpasslow4').value);
+		filter4.setType(document.querySelector("[name=filter4]:checked").value);
+		filter4.freq(valfilter4);
 
 		var spectrum = fft.analyze();
 		p.noStroke();
@@ -141,6 +165,30 @@ var sketch2 = function (p) {
 		} else {
 			console.log("s2 pause")
 			sound2.pause();
+		}
+
+		if ( document.querySelector(".sound3").checked ) {
+			if (sound3.isPlaying()) {
+				console.log("s2 loop")
+			}else{
+				sound3.loop();
+
+			}
+		} else {
+			console.log("s2 pause")
+			sound3.pause();
+		}
+
+		if ( document.querySelector(".sound4").checked ) {
+			if (sound4.isPlaying()) {
+				console.log("s2 loop")
+			}else{
+				sound4.loop();
+
+			}
+		} else {
+			console.log("s2 pause")
+			sound4.pause();
 		}
 	};
 
