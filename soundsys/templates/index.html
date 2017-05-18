@@ -12,6 +12,12 @@
 			display: block;
 			margin: 0 auto;
 		}
+		.panel-primary{
+			padding : 2px;
+		}
+		.col-md-6{
+			padding : 6px;
+		}
 	</style>
 </head>
 <body>
@@ -20,7 +26,7 @@
 	</section>
 
 
-	<div class="col-md-8 panel panel-default">
+	<div class="col-md-8 panel panel-default" style="padding: 0">
 		<div class="col-md-3 panel panel-primary">
 			<div class="panel-heading">
 				
@@ -31,14 +37,15 @@
 				<div class="row">
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter1" checked="" value="lowpass" id="filter1_lowpass">
-						<label for="filter1_lowpass">Filtro Bajos</label>
+						<label for="filter1_lowpass">Bajos(10Hz)</label>
 					</div>
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter1" value="highpass" id="filter1_highpass">
-						<label for="filter1_highpass">Filtro Altos</label>
+						<label for="filter1_highpass">Altos(2550Hz)</label>
 					</div>
 					<div class="form-group col-md-12">
-						<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow">
+						<input value="10" min="10" max="2550" step="1" type="range" onchange="actualizar_label(this,event)" data-label="range" id="fpasslow">
+						<label for="" id="range"></label>
 					</div>
 				</div>
 			</div>
@@ -54,14 +61,15 @@
 				<div class="row">
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter2" checked="" value="lowpass" id="filter2_lowpass">
-						<label for="filter2_lowpass">Filtro Bajos</label>
+						<label for="filter2_lowpass">Bajos(10Hz)</label>
 					</div>
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter2" value="highpass" id="filter2_highpass">
-						<label for="filter2_highpass">Filtro Altos</label>
+						<label for="filter2_highpass">Altos(2550Hz)</label>
 					</div>
 					<div class="form-group col-md-12">
-						<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow2">
+						<input value="10" min="10" max="2550" step="1" type="range" onchange="actualizar_label(this,event)" data-label="range2" id="fpasslow2">
+						<label for="" id="range2"></label>
 					</div>
 				</div>
 			</div>
@@ -77,14 +85,15 @@
 				<div class="row">
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter3" checked="" value="lowpass" id="filter3_lowpass">
-						<label for="filter3_lowpass">Filtro Bajos</label>
+						<label for="filter3_lowpass">Bajos(10Hz)</label>
 					</div>
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter3" value="highpass" id="filter3_highpass">
-						<label for="filter3_highpass">Filtro Altos</label>
+						<label for="filter3_highpass">Altos(2550Hz)</label>
 					</div>
 					<div class="form-group col-md-12">
-						<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow3">
+						<input value="10" min="10" max="2550" step="1" type="range" onchange="actualizar_label(this,event)" data-label="range3" id="fpasslow3">
+						<label for="" id="range3"></label>
 					</div>
 				</div>
 			</div>
@@ -100,21 +109,27 @@
 				<div class="row">
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter4" checked="" value="lowpass" id="filter4_lowpass">
-						<label for="filter4_lowpass">Filtro Bajos</label>
+						<label for="filter4_lowpass">Bajos(10Hz)</label>
 					</div>
 					<div class="form-group col-md-6">
 						<input type="radio" name="filter4" value="highpass" id="filter4_highpass">
-						<label for="filter4_highpass">Filtro Altos</label>
+						<label for="filter4_highpass">Altos(2550Hz)</label>
 					</div>
 					<div class="form-group col-md-12">
-						<input value="10" min="10" max="2550" step="1" type="range" id="fpasslow4">
+						<input value="10" min="10" max="2550" step="1" type="range" onchange="actualizar_label(this,event)" data-label="range4" id="fpasslow4">
+						<label for="" id="range4"></label>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="col-md-12">
-			<div id="grap" style="background: rgb(240,240,240);"></div>
+			<div class="col-md-6">
+				<div id="grap" style="background: rgb(240,240,240);"></div>
+			</div>
+			<div class="col-md-6">
+				<div id="grap1" style="background: rgb(240,240,240);"></div>
+			</div>
 		</div>
 	</div>
 	<div class="col-md-4 panel panel-default">
@@ -146,6 +161,16 @@
 
 
 	<script type="text/javascript" src="{{ url_for('static', filename='src/analysis.js') }}"></script>
+
+	<script>
+		function actualizar_label(element,event){
+			console.log(element)
+			var id = element.dataset.label
+			var label = document.getElementById(id)
+			label.innerHTML = element.value + " Hz"
+
+		}
+	</script>
 	<script>
 
 	</script>
