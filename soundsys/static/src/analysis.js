@@ -355,6 +355,7 @@ var sketch1 = function (p) {
 
 	// fade sound if mouse is over canvas
 	p.togglePlay = function() {
+		/*
 		console.log("toogle play")
 		if ( document.querySelector(".sound").checked ) {
 			if (sound.isPlaying()) {
@@ -402,6 +403,7 @@ var sketch1 = function (p) {
 			console.log("s2 pause")
 			sound4.pause();
 		}
+		*/
 	};
 
 	p.drawGrid = function() {
