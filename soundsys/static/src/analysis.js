@@ -21,8 +21,8 @@ var sketch2 = function (p) {
 	mic.start();
 
 	p.preload = function(){
-		sound = p.loadSound('static/assets/claro_luna.mp3');
-		sound2 = p.loadSound('static/assets/lilium_acapella.mp3');
+		sound = p.loadSound('static/assets/mi_voz.mp4');
+		sound2 = p.loadSound('static/assets/claro_luna.mp3');
 		sound3 = p.loadSound('static/assets/lilium_acapella.mp3');
 		sound4 = p.loadSound('static/assets/lilium_acapella.mp3');
 	};
