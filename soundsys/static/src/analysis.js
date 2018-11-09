@@ -63,7 +63,6 @@ var sketch2 = function (p) {
 	};
 
 	p.keyTyped = function() {
-		console.log("typed")
 		if ( p.key != "d" && p.key != "l" ){
 			return 0;
 		}
@@ -74,7 +73,6 @@ var sketch2 = function (p) {
 		var spectrum = fft.analyze();
 		p.save(cnv,"image.jpg");
 
-		console.log(spectrum);
 		var misCabeceras = new Headers({
 			'Content-Type': 'application/json',
 		});
@@ -97,7 +95,7 @@ var sketch2 = function (p) {
 		var vol = mic.getLevel();
 		var level = amplitude.getLevel();
 
-		
+
 		var valfilter = parseInt(document.querySelector('#fpasslow').value);
 		filter.setType(document.querySelector("[name=filter1]:checked").value);
 		filter.freq(valfilter);
@@ -143,51 +141,42 @@ var sketch2 = function (p) {
 
 	// fade sound if mouse is over canvas
 	p.togglePlay = function() {
-		console.log("toogle play")
 		if ( document.querySelector(".sound").checked ) {
 			if (sound.isPlaying()) {
-				console.log("s loop")
 			}else{
 				sound.loop();
 			}
 		} else {
-			console.log("s pause")
 			sound.pause();
 		}
 
 		if ( document.querySelector(".sound2").checked ) {
 			if (sound2.isPlaying()) {
-				console.log("s2 loop")
 			}else{
 				sound2.loop();
 
 			}
 		} else {
-			console.log("s2 pause")
 			sound2.pause();
 		}
 
 		if ( document.querySelector(".sound3").checked ) {
 			if (sound3.isPlaying()) {
-				console.log("s2 loop")
 			}else{
 				sound3.loop();
 
 			}
 		} else {
-			console.log("s2 pause")
 			sound3.pause();
 		}
 
 		if ( document.querySelector(".sound4").checked ) {
 			if (sound4.isPlaying()) {
-				console.log("s2 loop")
 			}else{
 				sound4.loop();
 
 			}
 		} else {
-			console.log("s2 pause")
 			sound4.pause();
 		}
 	};
@@ -274,7 +263,6 @@ var sketch1 = function (p) {
 	};
 
 	p.keyTyped = function() {
-		console.log("typed")
 		if ( p.key != "d" && p.key != "l" ){
 			return 0;
 		}
@@ -285,7 +273,6 @@ var sketch1 = function (p) {
 		var spectrum = fft.analyze();
 		p.save(cnv,"image.jpg");
 
-		console.log(spectrum);
 		var misCabeceras = new Headers({
 			'Content-Type': 'application/json',
 		});
@@ -308,7 +295,7 @@ var sketch1 = function (p) {
 		var vol = mic.getLevel();
 		var level = amplitude.getLevel();
 
-		
+
 		var valfilter = parseInt(document.querySelector('#fpasslow').value);
 		filter.setType(document.querySelector("[name=filter1]:checked").value);
 		filter.freq(valfilter);
@@ -356,51 +343,42 @@ var sketch1 = function (p) {
 	// fade sound if mouse is over canvas
 	p.togglePlay = function() {
 		/*
-		console.log("toogle play")
 		if ( document.querySelector(".sound").checked ) {
 			if (sound.isPlaying()) {
-				console.log("s loop")
 			}else{
 				sound.loop();
 			}
 		} else {
-			console.log("s pause")
 			sound.pause();
 		}
 
 		if ( document.querySelector(".sound2").checked ) {
 			if (sound2.isPlaying()) {
-				console.log("s2 loop")
 			}else{
 				sound2.loop();
 
 			}
 		} else {
-			console.log("s2 pause")
 			sound2.pause();
 		}
 
 		if ( document.querySelector(".sound3").checked ) {
 			if (sound3.isPlaying()) {
-				console.log("s2 loop")
 			}else{
 				sound3.loop();
 
 			}
 		} else {
-			console.log("s2 pause")
 			sound3.pause();
 		}
 
 		if ( document.querySelector(".sound4").checked ) {
 			if (sound4.isPlaying()) {
-				console.log("s2 loop")
 			}else{
 				sound4.loop();
 
 			}
 		} else {
-			console.log("s2 pause")
 			sound4.pause();
 		}
 		*/
